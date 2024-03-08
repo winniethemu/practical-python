@@ -13,8 +13,12 @@ while principal > 0:
         payment = regular_payment + extra_payment
     else:
         payment = regular_payment
-    principal = principal * (1+rate/12) - payment
-    total_paid = total_paid + payment
+    if principal < payment:
+        total_paid += principal
+        principal = 0
+    else:
+        principal = principal * (1+rate/12) - payment
+        total_paid = total_paid + payment
     print(month, round(total_paid, ndigits=2), round(principal, ndigits=2))
 
 print('Total payment', total_paid)
