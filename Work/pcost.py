@@ -9,7 +9,7 @@ def calculate_cost(file):
         try:
             total_cost += int(shares) * float(price)
         except ValueError:
-            pass
+            print(f'Malformatted line: {line}')
     return total_cost
 
 
