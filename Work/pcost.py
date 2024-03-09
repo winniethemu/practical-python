@@ -1,3 +1,4 @@
+import sys
 import gzip
 
 
@@ -24,5 +25,10 @@ def portfolio_cost(filename):
         pass
 
 
-cost = portfolio_cost('Data/missing.csv')
+filename = 'Data/missing.csv'
+
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+
+cost = portfolio_cost(filename)
 print(f'Total cost: {cost}')
