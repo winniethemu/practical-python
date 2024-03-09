@@ -6,7 +6,10 @@ def calculate_cost(file):
     next(file)  # skip header
     for line in file:
         [name, shares, price] = line.split(',')
-        total_cost += int(shares) * float(price)
+        try:
+            total_cost += int(shares) * float(price)
+        except ValueError:
+            pass
     return total_cost
 
 
@@ -21,5 +24,5 @@ def portfolio_cost(filename):
         pass
 
 
-cost = portfolio_cost('Data/portfolio.csv')
+cost = portfolio_cost('Data/missing.csv')
 print(f'Total cost: {cost}')
