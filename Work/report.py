@@ -14,3 +14,14 @@ def read_portfolio(filename):
             }
             portfolio.append(record)
     return portfolio
+
+
+def read_prices(filename):
+    prices = {}
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        for row in rows:
+            if len(row) > 0:
+                name, price = row
+                prices[name] = price
+    return prices
