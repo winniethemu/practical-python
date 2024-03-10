@@ -5,12 +5,12 @@ import gzip
 def calculate_cost(file):
     total_cost = 0
     next(file)  # skip header
-    for line in file:
+    for line_num, line in enumerate(file, start=1):
         [name, shares, price] = line.split(',')
         try:
             total_cost += int(shares) * float(price)
         except ValueError:
-            print(f'Malformatted line: {line}')
+            print(f'Row {line_num}: Malformatted line {line}')
     return total_cost
 
 
