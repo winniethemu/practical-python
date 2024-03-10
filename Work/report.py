@@ -53,7 +53,13 @@ def print_report(report):
         print(f'{r[0]:>10s} {r[1]:>10d} {r[2]:>10s} {r[3]:>10.2f}')
 
 
-portfolio = read_portfolio('Data/portfoliodate.csv')
-prices = read_prices('Data/prices.csv')
-report = make_report(portfolio, prices)
-print_report(report)
+def portfolio_report(portfolio_filename, prices_filename):
+    portfolio = read_portfolio(portfolio_filename)
+    prices = read_prices(prices_filename)
+    report = make_report(portfolio, prices)
+    print_report(report)
+
+
+portfolio_file = 'Data/portfoliodate.csv'
+prices_file = 'Data/prices.csv'
+portfolio_report(portfolio_file, prices_file)
