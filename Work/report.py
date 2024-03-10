@@ -34,7 +34,11 @@ def make_report(portfolio, prices):
         shares = holding['shares']
         purchase_price = holding['price']
         current_price = prices[name]
-        row = (name, shares, current_price, current_price - purchase_price)
+        row = (
+            name,
+            shares,
+            f'${current_price}',
+            current_price - purchase_price)
         rows.append(row)
     return rows
 
@@ -53,4 +57,4 @@ for i in range(4):
 print()
 
 for r in report:
-    print(f'{r[0]:>10s} {r[1]:>10d} {r[2]:>10.2f} {r[3]:>10.2f}')
+    print(f'{r[0]:>10s} {r[1]:>10d} {r[2]:>10s} {r[3]:>10.2f}')
