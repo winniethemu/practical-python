@@ -27,18 +27,21 @@ def read_prices(filename):
     return prices
 
 
-initial_value = 0
-current_value = 0
+def make_report(portfolio, prices):
+    rows = []
+    for holding in portfolio:
+        name = holding['name']
+        shares = holding['shares']
+        purchase_price = holding['price']
+        current_price = prices[name]
+        row = (name, shares, current_price, current_price - purchase_price)
+        rows.append(row)
+    return rows
+
 
 portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
+report = make_report(portfolio, prices)
 
-for holding in portfolio:
-    initial_price = holding['price']
-    initial_value += initial_price * holding['shares']
-    current_price = prices[holding['name']]
-    current_value += current_price * holding['shares']
-
-print('Initial value', initial_value)
-print('Current value', current_value)
-print('Gain', current_value - initial_value)
+for r in report:
+    print(r)
