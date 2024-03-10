@@ -1,28 +1,21 @@
 import sys
-import gzip
-
-
-def calculate_cost(file):
-    total_cost = 0
-    next(file)  # skip header
-    for line_num, line in enumerate(file, start=1):
-        [name, shares, price] = line.split(',')
-        try:
-            total_cost += int(shares) * float(price)
-        except ValueError:
-            print(f'Row {line_num}: Malformatted line {line}')
-    return total_cost
+import csv
 
 
 def portfolio_cost(filename):
-    if filename.endswith('csv'):
-        with open(filename, 'rt') as file:
-            return calculate_cost(file)
-    elif filename.endswith('gz'):
-        with gzip.open(filename, 'rt') as file:
-            return calculate_cost(file)
-    else:
-        pass
+    total_cost = 0
+    with open(filename, 'rt') as file:
+        rows = csv.reader(file)
+        headers = next(rows)
+        for row_num, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
+            try:
+                shares = int(record['shares'])
+                price = float(record['price'])
+                total_cost += shares * price
+            except ValueError:
+                print(f'Row {row_num}: Malformatted row {row}')
+    return total_cost
 
 
 filename = 'Data/missing.csv'
