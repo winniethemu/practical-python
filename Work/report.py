@@ -44,4 +44,4 @@ prices = read_prices('Data/prices.csv')
 report = make_report(portfolio, prices)
 
 for r in report:
-    print(r)
+    print(f'{r[0]:>10s} {r[1]:>10d} {r[2]:>10.2f} {r[3]:>10.2f}')
