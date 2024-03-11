@@ -6,7 +6,8 @@ def parse_csv(
         select=False,
         types=None,
         has_headers=True,
-        delimiter=','):
+        delimiter=',',
+        silence_errors=True):
     '''
     Parse a CSV file into a list of records
     '''
@@ -35,6 +36,7 @@ def parse_csv(
                 else:
                     record = tuple(row)
             except ValueError:
-                print(f'Row {index}: Couldn\'t convert {row}')
+                if not silence_errors:
+                    print(f'Row {index}: Couldn\'t convert {row}')
             records.append(record)
     return records
