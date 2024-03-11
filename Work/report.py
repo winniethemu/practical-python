@@ -1,26 +1,12 @@
-import csv
+from fileparse import parse_csv
 
 
 def read_portfolio(filename):
-    portfolio = []
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        for row in rows:
-            record = dict(zip(headers, row))
-            portfolio.append(record)
-    return portfolio
+    return parse_csv(filename)
 
 
 def read_prices(filename):
-    prices = {}
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        for row in rows:
-            if len(row) > 0:
-                name, price = row
-                prices[name] = price
-    return prices
+    return dict(parse_csv(filename, has_headers=False))
 
 
 def make_report(portfolio, prices):
