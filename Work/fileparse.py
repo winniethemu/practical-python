@@ -1,7 +1,7 @@
 import csv
 
 
-def parse_csv(filename):
+def parse_csv(filename, select=False):
     '''
     Parse a CSV file into a list of records
     '''
@@ -12,6 +12,10 @@ def parse_csv(filename):
         for row in rows:
             if not row:
                 continue
-            record = dict(zip(headers, row))
+            if select is False:
+                record = dict({v: row[i] for i, v in enumerate(headers)})
+            else:
+                record = dict({
+                    v: row[i] for i, v in enumerate(headers) if v in select})
             records.append(record)
     return records
