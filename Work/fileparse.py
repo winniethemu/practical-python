@@ -18,19 +18,23 @@ def parse_csv(
         if has_headers:
             headers = next(rows)
         records = []
-        for row in rows:
+        for index, row in enumerate(rows, 1):
             if not row:
                 continue
-            if types:
-                row = [func(val) for func, val in zip(types, row)]
-            if has_headers:
-                if select is False:
-                    record = dict({v: row[i] for i, v in enumerate(headers)})
+            try:
+                if types:
+                    row = [func(val) for func, val in zip(types, row)]
+                if has_headers:
+                    if select is False:
+                        record = dict({
+                            v: row[i] for i, v in enumerate(headers)})
+                    else:
+                        record = dict({
+                            v: row[i] for i, v in enumerate(
+                                headers) if v in select})
                 else:
-                    record = dict({
-                        v: row[i] for i, v in enumerate(headers) if v in select
-                    })
-            else:
-                record = tuple(row)
+                    record = tuple(row)
+            except ValueError:
+                print(f'Row {index}: Couldn\'t convert {row}')
             records.append(record)
     return records
