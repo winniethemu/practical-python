@@ -2,6 +2,7 @@ import sys
 
 from fileparse import parse_csv
 from stock import Stock
+from tableformat import TableFormatter
 
 
 def read_portfolio(filename):
@@ -36,25 +37,26 @@ def make_report(portfolio, prices):
     return rows
 
 
-def print_report(report):
-    headers = ('Name', 'Shares', 'Price', 'Change')
-    for header in headers:
-        print(f'{header:>10s}', end=' ')
-    print()
-
-    for i in range(4):
-        print('----------', end=' ')
-    print()
-
-    for r in report:
-        print(f'{r[0]:>10s} {r[1]:>10d} {r[2]:>10s} {r[3]:>10.2f}')
+def print_report(report_data, formatter):
+    '''
+    Print a nicely formatted table from a list of (name, shares, price, change)
+    tuples.
+    '''
+    formatter.headings(('Name', 'Shares', 'Price', 'Change'))
+    for name, shares, price, change in report_data:
+        row_data = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
+        formatter.row(row_data)
 
 
 def portfolio_report(portfolio_filename, prices_filename):
+    '''
+    Make a stock report given portfolio and price data files.
+    '''
     portfolio = read_portfolio(portfolio_filename)
     prices = read_prices(prices_filename)
     report = make_report(portfolio, prices)
-    print_report(report)
+    formatter = TableFormatter()
+    print_report(report, formatter)
 
 
 def main(args):
