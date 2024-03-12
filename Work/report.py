@@ -1,11 +1,18 @@
 import sys
 
 from fileparse import parse_csv
+from stock import Stock
 
 
 def read_portfolio(filename):
     with open(filename) as file:
-        return parse_csv(file)
+        records = parse_csv(file)
+        return [
+            Stock(
+                record['name'],
+                record['shares'],
+                record['price']
+            ) for record in records]
 
 
 def read_prices(filename):
@@ -16,9 +23,9 @@ def read_prices(filename):
 def make_report(portfolio, prices):
     rows = []
     for holding in portfolio:
-        name = holding['name']
-        shares = int(holding['shares'])
-        purchase_price = float(holding['price'])
+        name = holding.name
+        shares = int(holding.shares)
+        purchase_price = float(holding.price)
         current_price = float(prices[name])
         row = (
             name,
@@ -50,7 +57,9 @@ def portfolio_report(portfolio_filename, prices_filename):
     print_report(report)
 
 
-def main(args=['report.py', 'Data/portfolio.csv', 'Data/prices.csv']):
+def main(args):
+    if len(args) < 2:
+        args += ['Data/portfolio.csv', 'Data/prices.csv']
     portfolio_report(args[1], args[2])
 
 

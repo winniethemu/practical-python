@@ -7,8 +7,8 @@ def portfolio_cost(filename):
     portfolio = read_portfolio(filename)
     for row_num, row in enumerate(portfolio, start=1):
         try:
-            shares = int(row['shares'])
-            price = float(row['price'])
+            shares = int(row.shares)
+            price = float(row.price)
             total_cost += shares * price
         except ValueError:
             print(f'Row {row_num}: Malformatted row {row}')
@@ -16,8 +16,8 @@ def portfolio_cost(filename):
     return total_cost
 
 
-def main(args=['pcost.py', 'Data/portfolio.csv']):
-    filename = args[1]
+def main(args):
+    filename = 'Data/portfolio.csv'
 
     if len(sys.argv) == 2:
         filename = sys.argv[1]
