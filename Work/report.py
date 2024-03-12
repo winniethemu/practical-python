@@ -2,7 +2,7 @@ import sys
 
 from fileparse import parse_csv
 from stock import Stock
-from tableformat import HTMLTableFormatter
+from tableformat import create_formatter
 
 
 def read_portfolio(filename):
@@ -48,14 +48,14 @@ def print_report(report_data, formatter):
         formatter.row(row_data)
 
 
-def portfolio_report(portfolio_filename, prices_filename):
+def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
     '''
     Make a stock report given portfolio and price data files.
     '''
     portfolio = read_portfolio(portfolio_filename)
     prices = read_prices(prices_filename)
     report = make_report(portfolio, prices)
-    formatter = HTMLTableFormatter()
+    formatter = create_formatter(fmt)
     print_report(report, formatter)
 
 

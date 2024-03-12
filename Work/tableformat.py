@@ -54,3 +54,15 @@ class HTMLTableFormatter(TableFormatter):
         for data in rowdata:
             print(f'<td>{data}</td>', end='')
         print('</tr>')
+
+
+def create_formatter(name):
+    match name:
+        case 'txt':
+            return TextTableFormatter()
+        case 'csv':
+            return CSVTableFormatter()
+        case 'html':
+            return HTMLTableFormatter()
+        case _:
+            pass
