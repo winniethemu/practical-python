@@ -1,3 +1,5 @@
+import sys
+
 from fileparse import parse_csv
 
 
@@ -48,3 +50,7 @@ def portfolio_report(portfolio_filename, prices_filename):
 
 def main(args=['report.py', 'Data/portfolio.csv', 'Data/prices.csv']):
     portfolio_report(args[1], args[2])
+
+
+if __name__ == '__main__':
+    main(sys.argv)

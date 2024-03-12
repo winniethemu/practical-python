@@ -24,3 +24,7 @@ def main(args=['pcost.py', 'Data/portfolio.csv']):
 
     cost = portfolio_cost(filename)
     print(f'Total cost: {cost}')
+
+
+if __name__ == '__main__':
+    main(sys.argv)
