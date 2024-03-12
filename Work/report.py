@@ -4,11 +4,13 @@ from fileparse import parse_csv
 
 
 def read_portfolio(filename):
-    return parse_csv(filename)
+    with open(filename) as file:
+        return parse_csv(file)
 
 
 def read_prices(filename):
-    return dict(parse_csv(filename, has_headers=False))
+    with open(filename) as file:
+        return dict(parse_csv(file, has_headers=False))
 
 
 def make_report(portfolio, prices):
