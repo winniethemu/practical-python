@@ -48,7 +48,10 @@ def print_report(report_data, formatter):
         formatter.row(row_data)
 
 
-def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
+def portfolio_report(
+        portfolio_filename='Data/portfolio.csv',
+        prices_filename='Data/prices.csv',
+        fmt='txt'):
     '''
     Make a stock report given portfolio and price data files.
     '''
@@ -60,9 +63,7 @@ def portfolio_report(portfolio_filename, prices_filename, fmt='txt'):
 
 
 def main(args):
-    if len(args) < 2:
-        args += ['Data/portfolio.csv', 'Data/prices.csv']
-    portfolio_report(args[1], args[2])
+    portfolio_report(args[1], args[2], args[3])
 
 
 if __name__ == '__main__':
