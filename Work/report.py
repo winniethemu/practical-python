@@ -2,7 +2,7 @@ import sys
 
 from fileparse import parse_csv
 from stock import Stock
-from tableformat import TableFormatter
+from tableformat import HTMLTableFormatter
 
 
 def read_portfolio(filename):
@@ -31,7 +31,7 @@ def make_report(portfolio, prices):
         row = (
             name,
             shares,
-            f'${current_price}',
+            current_price,
             current_price - purchase_price)
         rows.append(row)
     return rows
@@ -44,7 +44,7 @@ def print_report(report_data, formatter):
     '''
     formatter.headings(('Name', 'Shares', 'Price', 'Change'))
     for name, shares, price, change in report_data:
-        row_data = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
+        row_data = [name, str(shares), f'${price:0.2f}', f'{change:0.2f}']
         formatter.row(row_data)
 
 
@@ -55,7 +55,7 @@ def portfolio_report(portfolio_filename, prices_filename):
     portfolio = read_portfolio(portfolio_filename)
     prices = read_prices(prices_filename)
     report = make_report(portfolio, prices)
-    formatter = TableFormatter()
+    formatter = HTMLTableFormatter()
     print_report(report, formatter)
 
 
