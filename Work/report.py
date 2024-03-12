@@ -46,6 +46,5 @@ def portfolio_report(portfolio_filename, prices_filename):
     print_report(report)
 
 
-portfolio_file = 'Data/portfoliodate.csv'
-prices_file = 'Data/prices.csv'
-portfolio_report(portfolio_file, prices_file)
+def main(args=['report.py', 'Data/portfolio.csv', 'Data/prices.csv']):
+    portfolio_report(args[1], args[2])

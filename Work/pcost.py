@@ -16,10 +16,11 @@ def portfolio_cost(filename):
     return total_cost
 
 
-filename = 'Data/missing.csv'
+def main(args=['pcost.py', 'Data/portfolio.csv']):
+    filename = args[1]
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
 
-cost = portfolio_cost(filename)
-print(f'Total cost: {cost}')
+    cost = portfolio_cost(filename)
+    print(f'Total cost: {cost}')
