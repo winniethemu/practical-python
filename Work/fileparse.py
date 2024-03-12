@@ -2,7 +2,7 @@ import csv
 
 
 def parse_csv(
-        filename,
+        lines,
         select=False,
         types=None,
         has_headers=True,
@@ -14,29 +14,31 @@ def parse_csv(
     if select and not has_headers:
         raise RuntimeError('select argument requires column headers')
 
-    with open(filename) as f:
-        rows = csv.reader(f, delimiter=delimiter)
-        if has_headers:
-            headers = next(rows)
-        records = []
-        for index, row in enumerate(rows, 1):
-            if not row:
-                continue
-            try:
-                if types:
-                    row = [func(val) for func, val in zip(types, row)]
-                if has_headers:
-                    if select is False:
-                        record = dict({
-                            v: row[i] for i, v in enumerate(headers)})
-                    else:
-                        record = dict({
-                            v: row[i] for i, v in enumerate(
-                                headers) if v in select})
+    if type(lines) is str:
+        raise TypeError('expect file content instead of filename')
+
+    rows = csv.reader(lines, delimiter=delimiter)
+    if has_headers:
+        headers = next(rows)
+    records = []
+    for index, row in enumerate(rows, 1):
+        if not row:
+            continue
+        try:
+            if types:
+                row = [func(val) for func, val in zip(types, row)]
+            if has_headers:
+                if select is False:
+                    record = dict({
+                        v: row[i] for i, v in enumerate(headers)})
                 else:
-                    record = tuple(row)
-            except ValueError:
-                if not silence_errors:
-                    print(f'Row {index}: Couldn\'t convert {row}')
-            records.append(record)
+                    record = dict({
+                        v: row[i] for i, v in enumerate(
+                            headers) if v in select})
+            else:
+                record = tuple(row)
+        except ValueError:
+            if not silence_errors:
+                print(f'Row {index}: Couldn\'t convert {row}')
+        records.append(record)
     return records
