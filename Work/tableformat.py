@@ -56,6 +56,10 @@ class HTMLTableFormatter(TableFormatter):
         print('</tr>')
 
 
+class FormatError(Exception):
+    pass
+
+
 def create_formatter(name):
     match name:
         case 'txt':
@@ -65,7 +69,7 @@ def create_formatter(name):
         case 'html':
             return HTMLTableFormatter()
         case _:
-            pass
+            raise FormatError('Unknown table format %s' % name)
 
 
 def print_table(data, attributes, formatter):
