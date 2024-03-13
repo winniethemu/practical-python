@@ -66,3 +66,10 @@ def create_formatter(name):
             return HTMLTableFormatter()
         case _:
             pass
+
+
+def print_table(data, attributes, formatter):
+    formatter.headings(attributes)
+    for datum in data:
+        row_data = [getattr(datum, attribute) for attribute in attributes]
+        formatter.row(row_data)
