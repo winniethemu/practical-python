@@ -1,4 +1,5 @@
 import os
+import time
 
 
 def follow(filename):
@@ -8,8 +9,10 @@ def follow(filename):
 
         while True:
             line = f.readline()
-            if len(line) > 0:
-                yield line
+            if line == '':
+                time.sleep(0.1)
+                continue
+            yield line
 
 
 if __name__ == '__main__':
