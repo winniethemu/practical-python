@@ -3,17 +3,20 @@ import sys
 from fileparse import parse_csv
 from stock import Stock
 from tableformat import create_formatter
+from portfolio import Portfolio
 
 
 def read_portfolio(filename):
     with open(filename) as file:
-        records = parse_csv(file)
-        return [
+        records = parse_csv(
+            file, select=['name', 'shares', 'price'], types=[str, int, float])
+        portfolio = [
             Stock(
                 record['name'],
                 record['shares'],
                 record['price']
             ) for record in records]
+        return Portfolio(portfolio)
 
 
 def read_prices(filename):

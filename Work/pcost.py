@@ -3,17 +3,11 @@ from report import read_portfolio
 
 
 def portfolio_cost(filename):
-    total_cost = 0
+    '''
+    Computes the total cost (shares*price) of a portfolio file
+    '''
     portfolio = read_portfolio(filename)
-    for row_num, row in enumerate(portfolio, start=1):
-        try:
-            shares = int(row.shares)
-            price = float(row.price)
-            total_cost += shares * price
-        except ValueError:
-            print(f'Row {row_num}: Malformatted row {row}')
-
-    return total_cost
+    return portfolio.total_cost
 
 
 def main(args):
