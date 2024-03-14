@@ -2,6 +2,7 @@ import csv
 
 from follow import follow
 from report import read_portfolio
+from tableformat import create_formatter
 
 
 def convert_types(rows, types):
@@ -28,9 +29,21 @@ def select_columns(rows, indices):
 def parse_stock_data(lines):
     rows = csv.reader(lines)
     rows = select_columns(rows, [0, 1, 4])
-    rows = convert_types(rows, [str, float, float])
+    #  rows = convert_types(rows, [str, float, float])
     rows = make_dicts(rows, ['name', 'price', 'change'])
     return rows
+
+
+def ticker(portfile, logfile, fmt):
+    portfolio = read_portfolio(portfile)
+    lines = follow(logfile)
+    formatter = create_formatter(fmt)
+    rows = parse_stock_data(lines)
+    rows = filter_symbols(rows, portfolio)
+
+    formatter.headings(['Name', 'Price', 'Change'])
+    for row in rows:
+        formatter.row(row.values())
 
 
 if __name__ == '__main__':
