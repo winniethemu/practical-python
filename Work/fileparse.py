@@ -7,7 +7,7 @@ def parse_csv(
         types=None,
         has_headers=True,
         delimiter=',',
-        silence_errors=True):
+        silence_errors=False):
     '''
     Parse a CSV file into a list of records
     '''

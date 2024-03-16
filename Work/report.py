@@ -6,10 +6,16 @@ from tableformat import create_formatter
 from portfolio import Portfolio
 
 
-def read_portfolio(filename):
+def read_portfolio(filename, **opts):
+    '''
+    Read a stock portfolio file into a list of dictionaries with keys
+    name, shares, and price.
+    '''
     with open(filename) as file:
-        records = parse_csv(
-            file, select=['name', 'shares', 'price'], types=[str, int, float])
+        records = parse_csv(file,
+                            select=['name', 'shares', 'price'],
+                            types=[str, int, float],
+                            **opts)
         portfolio = [Stock(**record) for record in records]
         return Portfolio(portfolio)
 
