@@ -10,12 +10,7 @@ def read_portfolio(filename):
     with open(filename) as file:
         records = parse_csv(
             file, select=['name', 'shares', 'price'], types=[str, int, float])
-        portfolio = [
-            Stock(
-                record['name'],
-                record['shares'],
-                record['price']
-            ) for record in records]
+        portfolio = [Stock(**record) for record in records]
         return Portfolio(portfolio)
 
 
