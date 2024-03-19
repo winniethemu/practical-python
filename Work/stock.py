@@ -14,6 +14,17 @@ class Stock:
     def __repr__(self):
         return f'Stock(\'{self.name}\', {self.shares}, {self.price})'
 
+    '''
+    Decorator syntax, equivalent to:
+
+    def property(func):
+        def wrapper(*args, **kwargs):
+            ...
+            return func(*args, **kwargs)
+        return wrapper
+
+    cost = property(cost)
+    '''
     @property
     def cost(self) -> float:
         return self.shares * self.price
