@@ -1,7 +1,6 @@
 import sys
 
 from fileparse import parse_csv
-from stock import Stock
 from tableformat import create_formatter
 from portfolio import Portfolio
 
@@ -12,12 +11,7 @@ def read_portfolio(filename, **opts):
     name, shares, and price.
     '''
     with open(filename) as file:
-        records = parse_csv(file,
-                            select=['name', 'shares', 'price'],
-                            types=[str, int, float],
-                            **opts)
-        portfolio = [Stock(**record) for record in records]
-        return Portfolio(portfolio)
+        return Portfolio.from_csv(file)
 
 
 def read_prices(filename):

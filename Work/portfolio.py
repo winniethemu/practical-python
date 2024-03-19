@@ -1,6 +1,10 @@
+from fileparse import parse_csv
+from stock import Stock
+
+
 class Portfolio:
-    def __init__(self, holdings):
-        self._holdings = holdings
+    def __init__(self):
+        self._holdings = []
 
     def __iter__(self):
         return self._holdings.__iter__()
@@ -17,6 +21,22 @@ class Portfolio:
     @property
     def total_cost(self):
         return sum(s.cost for s in self._holdings)
+
+    @classmethod
+    def from_csv(cls, lines, **opts):
+        self = cls()
+        records = parse_csv(lines,
+                            select=['name', 'shares', 'price'],
+                            types=[str, int, float],
+                            **opts)
+        for record in records:
+            self.append(Stock(**record))
+        return self
+
+    def append(self, holding):
+        if not isinstance(holding, Stock):
+            raise TypeError('Expected a Stock instance')
+        self._holdings.append(holding)
 
     def tabulate_shares(self):
         from collections import Counter
