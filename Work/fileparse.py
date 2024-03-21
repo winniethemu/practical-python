@@ -1,4 +1,8 @@
 import csv
+import logging
+
+
+log = logging.getLogger(__name__)
 
 
 def parse_csv(
@@ -37,8 +41,9 @@ def parse_csv(
                             headers) if v in select})
             else:
                 record = tuple(row)
-        except ValueError:
+        except ValueError as e:
             if not silence_errors:
-                print(f'Row {index}: Couldn\'t convert {row}')
+                log.warning(f'Row {index}: Couldn\'t convert {row}')
+                log.debug(f'Row {index}: Reason {e}')
         records.append(record)
     return records
