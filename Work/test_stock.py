@@ -22,7 +22,7 @@ class TestStock(unittest.TestCase):
     def test_shares_type(self):
         s = Stock('GOOG', 100, 490.1)
         with self.assertRaises(TypeError):
-            s.shares = False
+            s.shares = '100'
 
 
 if __name__ == '__main__':
