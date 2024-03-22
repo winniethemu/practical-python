@@ -1,8 +1,8 @@
 import csv
 
-from follow import follow
-from report import read_portfolio
-from tableformat import create_formatter
+from .follow import follow
+from .report import read_portfolio
+from .tableformat import create_formatter
 
 
 def convert_types(rows, types):

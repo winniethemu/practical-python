@@ -1,8 +1,8 @@
 import sys
 
-from fileparse import parse_csv
-from tableformat import create_formatter
-from portfolio import Portfolio
+from .fileparse import parse_csv
+from .tableformat import create_formatter
+from .portfolio import Portfolio
 
 
 def read_portfolio(filename, **opts):
